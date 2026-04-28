@@ -1,0 +1,32 @@
+defaults:
+  - _self_
+  - pipelines@train_pipeline: pil_train_pipeline
+  - pipelines@val_pipeline: pil_eval_pipeline
+  - /data_info: ade20k
+_target_: data.base.SegmentationDataModule
+dataset:
+  class_path: data.ade20k.PILAde20kSegmentation
+  root: "${paths.data_dir}/ade20k"
+  download: true
+  target_size: null
+test_pipeline: ${.val_pipeline}
+train_split: train
+val_split: val
+test_split: val
+val_size: 0
+val_split_mode: random
+random_split: false
+batch_size: 1
+test_batch_size: 1
+num_workers: 2
+pin_memory: false
+seed: ${seed}
+# subset selection (set to null to use all samples)
+max_train_samples: null
+max_val_samples: null
+max_test_samples: null
+# pipeline args
+base_size: 520
+crop_size: 512
+normalize: true
+to_tensor: true

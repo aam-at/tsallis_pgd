@@ -1,0 +1,3 @@
+_target_: segmentation_attacks.gradient_aggregator.CosineSimilarityWeightedSumGradientAggregator
+discrete_mode: true
+name: "cossim_weighted_sum"

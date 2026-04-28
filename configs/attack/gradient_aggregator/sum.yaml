@@ -1,0 +1,2 @@
+_target_: segmentation_attacks.gradient_aggregator.SumGradientAggregator
+name: "sum"

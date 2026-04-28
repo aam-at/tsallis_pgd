@@ -1,0 +1,5 @@
+defaults:
+  - mmsegmodel
+name: "deeplabv3plus_r101"
+config: ${paths.models_dir}/mmsegmentation/deeplabv3plus_r101-d8_4xb4-40k_voc12aug-512x512.py
+checkpoint: ${paths.models_dir}/mmsegmentation/deeplabv3plus_r101-d8_512x512_40k_voc12aug_20200613_205333-faf03387.pth

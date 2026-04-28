@@ -1,0 +1,6 @@
+defaults:
+  - mmsegmodel
+_target_: models.MMSegModel
+name: "segformer_mit-b3"
+config: ${paths.models_dir}/mmsegmentation/segformer_mit-b3_8xb1-160k_cityscapes-1024x1024.py
+checkpoint: ${paths.models_dir}/mmsegmentation/segformer_mit-b3_8x1_1024x1024_160k_cityscapes_20211206_224823-a8f8a177.pth

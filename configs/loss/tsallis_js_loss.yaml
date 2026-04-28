@@ -1,0 +1,4 @@
+type: "tsallis_js"
+params:
+  q: 1.2
+name: "${.type}_q${.params.q}"

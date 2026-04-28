@@ -1,0 +1,2 @@
+type: "bal_masked_ce"
+name: "${.type}"

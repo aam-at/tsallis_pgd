@@ -1,0 +1,41 @@
+defaults:
+  - _self_
+  - hydra: default
+  - data: null
+  - model: null
+  - attack: no_attack
+  - callbacks: default
+  - loggers: many_loggers
+  - paths: default
+  - extras: default
+  # experiment configs allow for version control of specific hyperparameters
+  # e.g. best hyperparameters for given model and datamodule
+  - experiment: null
+  # config for hyperparameter optimization
+  - hparams_search: null
+  # optional local config for machine/user specific settings
+  # it's optional since it doesn't need to exist and is excluded from version control
+  - optional local: default
+  # debugging config (enable through command line, e.g. `python train.py debug=default)
+  - debug: null
+# task name, determines output directory path
+run_root: "runs"
+task_name: "attack"
+job_id: 0
+name_suffix: ""
+run_name: ${attack.name}${name_suffix}_id_${job_id}
+base_size: null
+crop_size: null
+data_split: "val"
+total_batches: null # limit number of batches to attack; null or <=0 means all
+overwrite: false
+save_adv_images: false
+save_adv_predictions: false
+return_at_iterations: []
+image_adv_dir: ${paths.output_dir}/${data_split}/adv_images
+gray_dir: ${paths.output_dir}/${data_split}/gray
+color_dir: ${paths.output_dir}/${data_split}/color
+tags: ["pirat"]
+# seed for random number generators in pytorch, numpy and python.random
+seed: 42
+seed_random: true

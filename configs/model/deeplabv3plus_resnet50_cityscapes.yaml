@@ -1,0 +1,5 @@
+defaults:
+  - mmsegmodel
+name: "deeplabv3plus_r50b"
+config: ${paths.models_dir}/mmsegmentation/deeplabv3plus_r50b-d8_4xb2-80k_cityscapes-512x1024.py
+checkpoint: ${paths.models_dir}/mmsegmentation/deeplabv3plus_r50b-d8_512x1024_80k_cityscapes_20201225_213645-a97e4e43.pth

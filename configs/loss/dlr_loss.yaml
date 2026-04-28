@@ -1,0 +1,2 @@
+type: "dlr"
+name: "${.type}"

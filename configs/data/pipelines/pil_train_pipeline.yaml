@@ -1,0 +1,3 @@
+defaults:
+  - train_pipeline_base
+_target_: data.pipelines.PILSegmentationTrainPipeline

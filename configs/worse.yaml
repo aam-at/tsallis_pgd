@@ -1,0 +1,24 @@
+defaults:
+  - _self_
+  - hydra: default
+  - data: null
+  - paths: default
+  - extras: default
+  - optional local: default
+run_root: "runs"
+task_name: "worse_eval"
+job_id: 0
+run_name: ${task_name}_id_${job_id}
+data_split: "val"
+tasks: ???
+metrics: ["worst_acc", "worst_miou"]
+subset:
+  start: null
+  stop: null
+  step: null
+n_rounds: 1000
+tol: 1.0e-6
+seed: 225
+ignore_index: null
+output_path: ${paths.output_dir}/worse_eval.json
+tags: ["worse_only"]

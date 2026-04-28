@@ -1,0 +1,5 @@
+base_size: ${data.base_size}
+crop_size: ${data.crop_size}
+center_crop: false
+normalize: ${data.normalize}
+to_tensor: ${data.to_tensor}

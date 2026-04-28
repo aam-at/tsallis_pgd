@@ -1,0 +1,3 @@
+defaults:
+  - pgd_ce
+  - override /loss: masked_ce_loss

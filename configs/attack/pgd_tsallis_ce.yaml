@@ -1,0 +1,3 @@
+defaults:
+  - pgd_ce
+  - override /loss: tsallis_ce_loss

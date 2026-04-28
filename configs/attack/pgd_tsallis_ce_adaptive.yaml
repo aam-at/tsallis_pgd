@@ -1,0 +1,3 @@
+defaults:
+  - pgd_ce
+  - override /loss: adaptive_tsallis_ce_loss_q_linear

@@ -1,0 +1,32 @@
+defaults:
+  - pirat_segmenter
+checkpoint: ${paths.models_dir}/pretrain_pirat/Segmenter_vit_s_robust.pth
+model:
+  _target_: models.segmenter.SegMenter
+  n_cls: 151
+  backbone: "vit_small_patch16_224"
+  pretrained: ${paths.models_dir}/init_robust_model/vit_s_robust.pt
+  encoder:
+    _target_: models.backbones.vit_encoder.VisionTransformer
+    image_size: [512, 512]
+    patch_size: 16
+    n_layers: 12
+    d_model: 384
+    d_ff: ${eval:${.d_model} * 4}
+    n_heads: 6
+    n_cls: 1000
+    dropout: 0.0
+    drop_path_rate: 0.0
+    distilled: false
+  decoder:
+    # mask_transformer
+    _target_: models.heads.segmenter_decoder.MaskTransformer
+    n_cls: ${..n_cls}
+    patch_size: 16
+    d_encoder: 384
+    n_layers: 2
+    n_heads: ${eval:${.d_encoder}//64}
+    d_model: ${.d_encoder}
+    d_ff: ${eval:${.d_encoder} * 4}
+    drop_path_rate: 0.0
+    dropout: 0.1

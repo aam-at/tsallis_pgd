@@ -1,0 +1,19 @@
+defaults:
+  - test
+  - override data: ade20k
+tags: ["ade20k"]
+data:
+  info:
+    ignore_index: -1
+  val_pipeline:
+    center_crop: true
+  train_pipeline: ${data.val_pipeline}
+  # data loader args
+  batch_size: 8
+  test_batch_size: 8
+  num_workers: 4
+  # pipeline args
+  normalize: true
+  to_tensor: true
+  base_size: 520
+  crop_size: 512

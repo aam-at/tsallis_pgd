@@ -1,0 +1,53 @@
+[project]
+name = "segmentation_attacks"
+version = "0.1.0"
+description = "Adversarial attacks and defenses for semantic segmentation"
+requires-python = ">=3.13"
+dependencies = [
+  "numpy>=2.4.3",
+  "torch>=2.10.0,<2.11.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "autoflake>=2.3.1",
+  "debugpy>=1.8.18",
+  "epc>=0.0.5",
+  "flake8>=7.1.2",
+  "importmagic>=0.1.7",
+  "ipython>=9.8.0",
+  "isort>=7.0.0",
+  "mypy>=1.19.1",
+  "pudb>=2025.1.5",
+  "pycodestyle>=2.12.1",
+  "pylint>=4.0.4",
+  "ruff>=0.14.9",
+  "ty>=0.0.19",
+]
+test = [
+  "gputil>=1.4.0",
+  "pytest-cov>=7.0.0",
+  "pytest-parallel>=0.1.1",
+  "pytest-randomly>=4.0.1",
+  "pytest-repeat>=0.9.4",
+  "pytest-rerunfailures>=16.1",
+  "pytest-sugar>=1.1.1",
+  "pytest-xdist[psutil]>=3.8.0",
+  "pytest>=9.0.2",
+  "six>=1.17.0",
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu130" }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/segmentation_attacks"]

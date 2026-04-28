@@ -1,0 +1,15 @@
+base_size: ${data.base_size}
+crop_size: ${data.crop_size}
+pad_value: ${data.info.mean}
+ignore_index: ${data.info.ignore_index}
+random_scale: true
+scale_min: 0.5
+scale_max: 2.0
+random_rotate: true
+rotate_min: -10
+rotate_max: 10
+random_gaussian_blur: true
+random_flip: true
+random_crop: true
+normalize: ${data.normalize}
+to_tensor: ${data.to_tensor}

@@ -1,0 +1,7 @@
+_target_: models.MMSegModel
+mean: [0.485, 0.456, 0.406]
+std: [0.229, 0.224, 0.225]
+input_min: ${select_if:${data.normalize},0.0,${data.info.input_min}}
+input_max: ${select_if:${data.normalize},1.0,${data.info.input_max}}
+compile: false
+freeze: true

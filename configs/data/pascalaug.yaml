@@ -1,0 +1,12 @@
+defaults:
+  - _self_
+  - pascalvoc
+  - override /data_info: voc_aug
+dataset:
+  class_path: data.pascal_aug.PILVOCAugSegmentation
+  # class_path: data.pascal_aug.CV2VOCAugSegmentation
+  root: ${paths.data_dir}
+  year: "2012"
+  croce_labels: false
+  croce_weights: false
+  target_size: null

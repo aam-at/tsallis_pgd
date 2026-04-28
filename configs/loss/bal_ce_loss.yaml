@@ -1,0 +1,2 @@
+type: "bal_ce"
+name: "${.type}"

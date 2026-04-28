@@ -1,0 +1,4 @@
+type: "tsallis_ce"
+params:
+  q: 0.5
+name: "${.type}_q${.params.q}"

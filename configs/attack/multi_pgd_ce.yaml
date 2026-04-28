@@ -1,0 +1,18 @@
+defaults:
+  - pgd_ce
+base_iterations: 300
+base_epsilon: 8
+iterations:
+  - ${eval:${..base_iterations} * 0.3}
+  - ${eval:${..base_iterations} * 0.3}
+  - ${eval:${..base_iterations} - ${..iterations[0]} - ${..iterations[1]}}
+epsilon:
+  - ${eval:${..base_epsilon}*2.0}
+  - ${eval:${..base_epsilon}*1.5}
+  - ${..base_epsilon}
+stepsize:
+  - ${eval:${..epsilon[0]}/4}
+  - ${eval:${..epsilon[1]}/4}
+  - ${eval:${..epsilon[2]}/4}
+name: multi_pgd_${.ord}_${.loss.name}_eps${join_str:${.epsilon},'{:.1f}'}_step${join_str:${.stepsize},'{:.1f}'}_n${join_str:${.iterations},'{:d}'}_N${.restarts}
+# name: multi_pgd_${.loss}_${.gradient_fn.name}

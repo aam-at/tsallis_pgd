@@ -1,0 +1,3 @@
+defaults:
+  - auto_pgd_ce
+  - override /loss: js_loss

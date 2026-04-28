@@ -1,0 +1,8 @@
+# Standard PGD attack with cross-entropy loss ane mean gradient aggregation
+defaults:
+  - pgd_ce
+_target_: segmentation_attacks.autopgd.AutoPGDAttack
+alpha: 0.75
+rho: 0.75
+stepsize: null
+name: auto_pgd_${.ord}_${.loss.name}_eps${fstr:${.epsilon},.1f}_n${.iterations}_N${.restarts}

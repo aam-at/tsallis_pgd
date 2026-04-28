@@ -1,0 +1,5 @@
+defaults:
+  - mmsegmodel
+name: "fcn_hr48"
+config: ${paths.models_dir}/mmsegmentation/fcn_hr48_4xb4-40k_voc12aug-512x512.py
+checkpoint: ${paths.models_dir}/mmsegmentation/fcn_hr48_512x512_40k_voc12aug_20200613_222111-1b0f18bc.pth

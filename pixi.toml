@@ -1,0 +1,55 @@
+[workspace]
+channels = ["conda-forge", "nvidia"]
+platforms = ["linux-64"]
+
+[dependencies]
+cuda-nvcc = "13.0.*"
+cuda-version = "13.0.*"
+gxx = ">=13,<14"
+gxx_linux-64 = ">=13,<14"
+lcms2 = "==2.18"
+libjpeg-turbo = ">=3.1.2,<4"
+libopencv = ">=4.13.0,<5"
+libtiff = ">=4.7.1,<5"
+ninja = ">=1.12.1,<2"
+openjpeg = "==2.5.4"
+pkg-config = ">=0.29.2,<0.30"
+pybind11 = ">=2.13.6,<3"
+pytest = ">=9.0.2,<10"
+python = ">=3.13.12,<3.14"
+scipy = ">=1.14"
+setuptools = ">=80,<81"
+simsimd = ">=7.1.1,<8"
+uv = ">=0.11.1,<0.12"
+zlib = ">=1.3.2,<2"
+
+[activation.env]
+UV_PROJECT_ENVIRONMENT = "$CONDA_PREFIX"
+LD_LIBRARY_PATH = "$CONDA_PREFIX/lib:$LD_LIBRARY_PATH"
+CUDA_HOME = "$CONDA_PREFIX"
+CUDA_PATH = "$CONDA_PREFIX"
+PROJECT_ROOT = "$PIXI_PROJECT_ROOT"
+DATA_ROOT = "$HOME/data"
+CPLUS_INCLUDE_PATH = "$CONDA_PREFIX/lib/python3.13/site-packages/nvidia/cu13/include:$CONDA_PREFIX/lib/python3.13/site-packages/nvidia/cudnn/include:$CONDA_PREFIX/lib/python3.13/site-packages/nvidia/cusparselt/include:$CPLUS_INCLUDE_PATH"
+LIBRARY_PATH = "$CONDA_PREFIX/lib/python3.13/site-packages/nvidia/cu13/lib:$CONDA_PREFIX/lib/python3.13/site-packages/nvidia/cudnn/lib:$CONDA_PREFIX/lib/python3.13/site-packages/nvidia/cusparselt/lib:$LIBRARY_PATH"
+
+[tasks]
+sync = { cmd = "export TORCH_CUDA_ARCH_LIST=$(python scripts/detect_cuda_arch.py 2>/dev/null) && uv sync --all-extras", description = "Install all Python dependencies including mmcv" }
+download-models = { cmd = "bash scripts/download_models.sh", description = "Download all pretrained model checkpoints" }
+download-data = { cmd = "bash scripts/download_data.sh", description = "Download segmentation datasets into project-root/data by default; pass a dataset name and optional root, for example: pixi run download-data -- cityscapes" }
+download-data-cityscapes = { cmd = "bash scripts/download_cityscapes.sh", description = "Download Cityscapes into project-root/data by default and prompt for Cityscapes credentials at runtime" }
+download-data-pascal-voc = { cmd = "bash scripts/download_data.sh pascal-voc", description = "Download Pascal VOC into project-root/data by default" }
+download-data-pascal-voc-aug = { cmd = "bash scripts/download_data.sh pascal-voc-aug", description = "Download Pascal VOC and build the Pascal VOC Aug split into project-root/data by default" }
+download-data-ade20k = { cmd = "bash scripts/download_data.sh ade20k", description = "Download ADE20K into project-root/data by default" }
+clone-mmcv = { cmd = "test -d external/mmcv/.git || (mkdir -p external && git clone --depth 1 --branch v2.1.0 https://github.com/open-mmlab/mmcv.git external/mmcv)", description = "Clone mmcv repo branch 2.1.0 to external/mmcv if not already cloned" }
+fix-mmcv-setup = { cmd = "python scripts/fix_mmcv_setup.py", description = "Fix Python 3.13 compatibility in mmcv setup.py" }
+detect-cuda-arch = { cmd = "python scripts/detect_cuda_arch.py", description = "Detect CUDA compute architecture" }
+install-mmcv = { cmd = "export TORCH_CUDA_ARCH_LIST=$(python scripts/detect_cuda_arch.py) && export MAX_JOBS=$(nproc) && cd external/mmcv && MMCV_WITH_OPS=1 uv pip install -v . --system --no-build-isolation", depends-on = [
+  "clone-mmcv",
+  "fix-mmcv-setup",
+  "sync",
+], description = "Compile and install mmcv with CUDA support (auto-detects GPU arch)" }
+setup = { cmd = "echo 'Setup complete.'", depends-on = [
+  "install-mmcv",
+  "download-models",
+], description = "Install all dependencies and download pretrained models" }

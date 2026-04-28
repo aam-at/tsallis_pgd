@@ -1,0 +1,4 @@
+defaults:
+  - auto_pgd_ce
+  - override gradient_aggregator: cossim_weighted_sum
+name: auto_cos_pgd_${.ord}_${.loss.name}_eps${fstr:${.epsilon},.1f}_step${fstr:${.stepsize},.1f}_n${.iterations}_N${.restarts}

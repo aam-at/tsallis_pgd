@@ -1,0 +1,2 @@
+_target_: segmentation_attacks.gradient_aggregator.AnnealedCorrectsWeightedSumGradientAggregator
+name: "annealed_corrects_weighted_sum"

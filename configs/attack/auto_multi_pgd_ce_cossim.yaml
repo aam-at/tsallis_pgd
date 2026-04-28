@@ -1,0 +1,8 @@
+defaults:
+  - auto_multi_pgd_ce
+  - override gradient_aggregator: cossim_weighted_sum
+_target_: segmentation_attacks.autopgd.AutoPGDAttack
+alpha: 0.75
+rho: 0.75
+stepsize: null
+name: auto_multi_cospgd_${.ord}_${.loss.name}_eps${join_str:${.epsilon},'{:.1f}'}_n${join_str:${.iterations},'{:d}'}_N${.restarts}

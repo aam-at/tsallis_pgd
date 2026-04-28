@@ -1,0 +1,3 @@
+defaults:
+  - eval_pipeline_base
+_target_: data.pipelines.PILSegmentationEvalPipeline

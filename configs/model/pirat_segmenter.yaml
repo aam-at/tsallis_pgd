@@ -1,0 +1,8 @@
+_target_: models.PIRATSegmenterModel
+mean: [0.0, 0.0, 0.0]
+std: [1.0, 1.0, 1.0]
+input_min: ${select_if:${data.normalize},0.0,${data.info.input_min}}
+input_max: ${select_if:${data.normalize},1.0,${data.info.input_max}}
+compile: false
+freeze: true
+normalize: false

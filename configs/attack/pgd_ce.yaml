@@ -1,0 +1,37 @@
+# Standard PGD attack with cross-entropy loss and mean gradient aggregation
+defaults:
+  - _self_
+  - gradient_aggregator: sum
+  - /loss: ce_loss
+_target_: segmentation_attacks.pgd.PGDAttack
+seed: ${seed}
+objective: "ce"
+ord: Linf
+iterations: 10
+epsilon: 8
+stepsize: ${eval:${.epsilon}/4}
+max_pixel_value: ${select_if:${data.normalize}, 255.0, 1.0}
+# stepsize: 0.01
+restarts: 1
+ignore_index: ${data.info.ignore_index}
+random_start: true
+targeted: false
+return_best: true
+verbose: true
+clip_min: ${data.info.input_min}
+clip_max: ${data.info.input_max}
+compile:
+  mode: default
+  fullgraph: true
+random_tag: ${bool_str:${.random_start},rand,norand}
+name: pgd_${.ord}_${.loss.name}_${.random_tag}_eps${fstr:${.epsilon},.1f}_step${fstr:${.stepsize},.1f}_n${.iterations}_N${.restarts}
+sample_logger:
+  _target_: lightning.pytorch.loggers.csv_logs.CSVLogger
+  save_dir: "${paths.output_dir}"
+  name: "sample_logs"
+  prefix: ""
+batch_logger:
+  _target_: lightning.pytorch.loggers.csv_logs.CSVLogger
+  save_dir: "${paths.output_dir}"
+  name: "batch_logs"
+  prefix: ""

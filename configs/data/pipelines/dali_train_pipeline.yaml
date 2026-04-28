@@ -1,0 +1,5 @@
+defaults:
+  - train_pipeline_base
+_target_: data.pipelines.DALISegmentationTrainPipeline
+device: gpu
+device_id: 0

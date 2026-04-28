@@ -1,0 +1,7 @@
+_target_: models.DDCATModel
+mean: ${data.info.mean}
+std: ${data.info.std}
+input_min: ${select_if:${data.normalize},0.0,${data.info.input_min}}
+input_max: ${select_if:${data.normalize},1.0,${data.info.input_max}}
+compile: false
+freeze: true

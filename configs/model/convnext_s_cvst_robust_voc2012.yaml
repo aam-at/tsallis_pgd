@@ -1,0 +1,8 @@
+defaults:
+  - pirat_upernet
+checkpoint: ${paths.models_dir}/pretrain_pirat/UperNet_ConvNext_S_VOC.pth
+model:
+  _target_: models.UperNetForSemanticSegmentation
+  backbone: ConvNext-S_CVST
+  n_cls: 21
+  pretrained: ${paths.models_dir}/init_robust_model/convnext_s_cvst_robust.pt

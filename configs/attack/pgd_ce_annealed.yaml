@@ -1,0 +1,5 @@
+# SegPGD attack with annealed weighted mean
+defaults:
+  - pgd_ce
+  - override gradient_aggregator: annealed_corrects_weighted_sum
+name: seg_pgd_${.ord}_${.loss.name}_eps${fstr:${.epsilon},.1f}_step${fstr:${.stepsize},.1f}_n${.iterations}_N${.restarts}

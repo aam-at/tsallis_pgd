@@ -1,0 +1,5 @@
+defaults:
+  - eval_pipeline_base
+_target_: data.pipelines.DALISegmentationEvalPipeline
+device: gpu
+device_id: 0

@@ -1,0 +1,18 @@
+# Path configurations for the project
+# Root directory
+# Uses PROJECT_ROOT environment variable; replace with "." for current working directory
+root_dir: ${oc.env:PROJECT_ROOT}
+# path to data directory
+data_dir: ${oc.env:HOME}/data
+# path to pretrained models
+models_dir: ${oc.env:PROJECT_ROOT}/models
+# Output directory
+# Created dynamically by Hydra; pattern specified in `configs/hydra/default.yaml`
+# Used for storing run-generated files (e.g., checkpoints, metrics)
+output_dir: ${hydra:runtime.output_dir}
+# Logging directory
+log_dir: ${paths.output_dir}/logs
+# Checkpoints directory
+checkpoints_dir: ${paths.output_dir}/checkpoints
+# Working directory
+work_dir: ${hydra:runtime.cwd}

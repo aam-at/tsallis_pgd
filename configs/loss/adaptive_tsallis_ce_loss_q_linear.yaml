@@ -1,0 +1,7 @@
+type: "adaptive_tsallis_ce"
+params:
+  variant: q_linear
+  q_start: -2.0
+  q_end: 1.0
+  end_fraction: 0.0
+name: "${.type}_${.params.variant}_start${.params.q_start}_end${.params.q_end}_fr${.params.end_fraction}"

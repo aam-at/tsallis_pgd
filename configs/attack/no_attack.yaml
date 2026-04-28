@@ -1,0 +1,5 @@
+defaults:
+  - gradient_aggregator: sum
+_target_: segmentation_attacks.no_attack.NoAttack
+seed: ${seed}
+name: no_attack

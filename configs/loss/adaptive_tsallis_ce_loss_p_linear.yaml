@@ -1,0 +1,7 @@
+type: "adaptive_tsallis_ce"
+params:
+  variant: p_linear
+  p_start: 0.9
+  p_end: 0.1
+  end_fraction: 0.0
+name: "${.type}_${.params.variant}_start${.params.p_start}_end${.params.p_end}_fr${.params.end_fraction}"

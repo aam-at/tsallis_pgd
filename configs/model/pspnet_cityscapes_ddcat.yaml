@@ -1,0 +1,7 @@
+defaults:
+  - ddcatmodel
+checkpoint: ${paths.models_dir}/pretrain_ddcat/cityscapes/pspnet/ddcat/train_epoch_400.pth
+model:
+  _target_: models.PSPNet_DDCAT
+  classes: ${data.info.num_classes}
+  pretrained: false

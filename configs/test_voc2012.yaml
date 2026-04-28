@@ -1,0 +1,21 @@
+defaults:
+  - test
+  - override data: pascalaug
+tags: ["pascal_voc"]
+data:
+  info:
+    ignore_index: -1
+  dataset:
+    croce_labels: true
+  val_pipeline:
+    center_crop: true
+  train_pipeline: ${data.val_pipeline}
+  # data loader args
+  batch_size: 16
+  test_batch_size: 16
+  num_workers: 4
+  # pipeline args
+  normalize: true
+  to_tensor: true
+  base_size: 512
+  crop_size: 473

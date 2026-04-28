@@ -1,0 +1,35 @@
+defaults:
+  - _self_
+  - pipelines@train_pipeline: pil_train_pipeline
+  - pipelines@val_pipeline: pil_eval_pipeline
+  - /data_info: voc2012
+_target_: data.base.SegmentationDataModule
+dataset:
+  class_path: data.pascal_voc.PILVOCSegmentation
+  # class_path: data.pascal_voc.CV2VOCSegmentation
+  root: "${paths.data_dir}/pascal_voc"
+  year: "2012"
+  croce_labels: false
+  croce_weights: false
+  target_size: null
+test_pipeline: ${.val_pipeline}
+train_split: train
+val_split: val
+test_split: val
+val_size: 0
+val_split_mode: random
+random_split: false
+batch_size: 1
+test_batch_size: 1
+num_workers: 2
+pin_memory: false
+seed: ${seed}
+# subset selection (set to null to use all samples)
+max_train_samples: null
+max_val_samples: null
+max_test_samples: null
+# pipeline args
+base_size: 512
+crop_size: 473
+normalize: true
+to_tensor: true

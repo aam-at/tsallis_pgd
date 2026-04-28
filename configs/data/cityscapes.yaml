@@ -1,0 +1,34 @@
+defaults:
+  - _self_
+  - pipelines@train_pipeline: cv2_train_pipeline
+  - pipelines@val_pipeline: cv2_eval_pipeline
+  - /data_info: cityscapes
+_target_: data.base.SegmentationDataModule
+dataset:
+  class_path: data.cityscapes.CV2Cityscapes
+  root: "${paths.data_dir}/cityscapes"
+  mode: fine
+  target_type: semantic_trainids
+  target_size: null
+  float_images: false
+train_split: train
+val_split: val
+test_split: test
+test_pipeline: ${.val_pipeline}
+val_size: 0
+val_split_mode: random
+random_split: false
+batch_size: 4
+test_batch_size: 4
+num_workers: 2
+pin_memory: false
+seed: ${seed}
+# subset selection (set to null to use all samples)
+max_train_samples: null
+max_val_samples: null
+max_test_samples: null
+# pipeline args
+base_size: 1024
+crop_size: 449
+normalize: true
+to_tensor: true

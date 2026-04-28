@@ -1,0 +1,21 @@
+defaults:
+  - test
+  - override data: cityscapes
+tags: ["cityscapes"]
+data:
+  info:
+    ignore_index: 255
+  dataset:
+    target_size: [1024, 512]
+  val_pipeline:
+    center_crop: true
+  train_pipeline: ${data.val_pipeline}
+  # data loader args
+  batch_size: 16
+  test_batch_size: 16
+  num_workers: 4
+  # pipeline args
+  normalize: false
+  to_tensor: true
+  base_size: 1024
+  crop_size: 449
