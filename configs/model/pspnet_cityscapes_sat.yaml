@@ -1,5 +1,6 @@
 defaults:
   - ddcatmodel
+name: "pspnet_sat"
 checkpoint: ${paths.models_dir}/pretrain_ddcat/cityscapes/pspnet/sat/train_epoch_400.pth
 model:
   _target_: models.PSPNet

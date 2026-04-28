@@ -1,5 +1,6 @@
 defaults:
   - ddcatmodel
+name: "pspnet_no_defense"
 checkpoint: ${paths.models_dir}/pretrain_ddcat/cityscapes/pspnet/no_defense/train_epoch_400.pth
 model:
   _target_: models.PSPNet

@@ -1,5 +1,6 @@
 defaults:
   - pirat_upernet
+name: "convnext_t_cvst_robust"
 checkpoint: ${paths.models_dir}/pretrain_pirat/UperNet_ConvNext_T_ADE.pth
 model:
   _target_: models.UperNetForSemanticSegmentation

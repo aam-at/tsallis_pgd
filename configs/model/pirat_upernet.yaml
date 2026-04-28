@@ -1,4 +1,5 @@
 _target_: models.PIRATUperModel
+name: "pirat_upernet"
 mean: [0.0, 0.0, 0.0]
 std: [1.0, 1.0, 1.0]
 input_min: ${select_if:${data.normalize},0.0,${data.info.input_min}}

@@ -1,5 +1,6 @@
 defaults:
   - pirat_segmenter
+name: "segment_vit_s_robust"
 checkpoint: ${paths.models_dir}/pretrain_pirat/Segmenter_vit_s_robust.pth
 model:
   _target_: models.segmenter.SegMenter
