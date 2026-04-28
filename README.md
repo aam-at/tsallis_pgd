@@ -15,8 +15,6 @@ We show that no single fixed `q` is universally optimal across datasets, model a
 
 ---
 
-![TsallisPGD overview](docs/assets/tsallispgd-overview.svg)
-
 ### Evaluated Semantic Segmentation Models
 
 This repository contains the evaluation harness used for the TsallisPGD paper. It covers standard MMSegmentation models, DDCAT robust models, and PIR-AT robust models. The PIR-AT checkpoints and evaluation conventions follow the public [Robust-Segmentation](https://github.com/nmndeep/Robust-Segmentation) repository.
@@ -50,7 +48,7 @@ It combines APGD step-size selection, a 300-iteration budget, one random start, 
 
 ![Per-pixel input-gradient visualization comparing CE and Tsallis CE losses](docs/assets/ce_vs_tsallis_input_gradients.png)
 
-**Figure:** Per-pixel input-gradient visualization for a semantic segmentation model under standard cross-entropy (CE) and Tsallis cross-entropy objectives. The top row shows the input image, the ground-truth class confidence map \(p_y\), a binary map of pixels already misclassified by the clean model, and the CE input-gradient norm \(\|\nabla_x L_i\|_2\). The bottom row shows Tsallis CE input-gradient norms \(\|\nabla_x L_{q,i}\|_2\) for \(q \in \{-2,-1,0,0.5\}\). Gradient maps are independently normalized per panel; therefore color indicates relative spatial importance within each loss, rather than absolute gradient magnitude across losses. As \(q\) decreases, Tsallis CE suppresses gradients on low-confidence or already-misclassified pixels and concentrates gradient mass around pixels where the model assigns higher probability to the ground-truth class.
+**Figure:** Per-pixel input-gradient visualization for a semantic segmentation model under standard cross-entropy (CE) and Tsallis cross-entropy objectives. The top row shows the input image, the ground-truth class confidence map \(p*y\), a binary map of pixels already misclassified by the clean model, and the CE input-gradient norm \(\|\nabla_x L_i\|\_2\). The bottom row shows Tsallis CE input-gradient norms \(\|\nabla_x L*{q,i}\|\_2\) for \(q \in \{-2,-1,0,0.5\}\). Gradient maps are independently normalized per panel; therefore color indicates relative spatial importance within each loss, rather than absolute gradient magnitude across losses. As \(q\) decreases, Tsallis CE suppresses gradients on low-confidence or already-misclassified pixels and concentrates gradient mass around pixels where the model assigns higher probability to the ground-truth class.
 
 #### Available attacks
 
