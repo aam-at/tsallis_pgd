@@ -51,7 +51,7 @@ download_gdrive() {
     return 0
   fi
   echo "  [GET]  $(basename "$dest") (Google Drive)"
-  uvx gdown --fuzzy "https://drive.google.com/uc?id=${file_id}" -O "$dest" || {
+  uvx --from "gdown==5.2.1" gdown --fuzzy "https://drive.google.com/uc?id=${file_id}" -O "$dest" || {
     echo "  [FAIL] $(basename "$dest")"
     rm -f "$dest"
     return 1
