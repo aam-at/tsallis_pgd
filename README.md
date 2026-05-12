@@ -78,10 +78,19 @@ Then clone and bootstrap the repository:
 ```bash
 git clone https://github.com/aam-at/tsallis_pgd.git
 cd tsallis_pgd
+pixi install
 pixi run setup
 ```
 
-`pixi run setup` installs the Python environment, builds a CUDA-enabled `mmcv`, and downloads pretrained segmentation checkpoints.
+`pixi install` creates the Pixi environment. `pixi run setup` installs the Python dependencies, builds a CUDA-enabled `mmcv`, and downloads pretrained segmentation checkpoints.
+
+Before running experiments interactively, start a Pixi shell from the repository root:
+
+```bash
+pixi shell
+```
+
+This activates the correct Python, CUDA, compiler, and library paths for the current terminal session. Run the experiment commands below from inside this shell.
 
 Requirements:
 
@@ -93,7 +102,7 @@ Requirements:
 #### Troubleshooting
 
 - `mmcv` build failures usually indicate a CUDA/compiler mismatch. Run `pixi run setup` from a clean shell so Pixi's CUDA toolchain is first on `PATH`.
-- If model downloads fail partway through, re-run `scripts/download_models.sh`; existing checkpoints are skipped.
+- If model downloads fail partway through, re-run `pixi run download-models`; existing checkpoints are skipped.
 - Cityscapes download requires valid Cityscapes credentials and acceptance of the dataset terms.
 
 #### Data
@@ -114,10 +123,12 @@ Cityscapes download requires Cityscapes account credentials.
 
 The main entry point is the Hydra application `experiments/test.py`.
 
+Run these commands from inside `pixi shell`.
+
 #### Pascal VOC, UPerNet ConvNeXt-T PIR-AT, `epsilon = 8/255`
 
 ```bash
-pixi run python experiments/test.py \
+python experiments/test.py \
   -cn test_voc2012 \
   model=convnext_t_cvst_robust_voc2012 \
   attack=auto_multi_pgd_tsallis_ce_adaptive \
@@ -129,7 +140,7 @@ pixi run python experiments/test.py \
 #### ADE20K, UPerNet ConvNeXt-T PIR-AT, `epsilon = 8/255`
 
 ```bash
-pixi run python experiments/test.py \
+python experiments/test.py \
   -cn test_ade20k \
   model=convnext_t_cvst_robust_ade20k \
   attack=auto_multi_pgd_tsallis_ce_adaptive \
@@ -141,7 +152,7 @@ pixi run python experiments/test.py \
 #### Cityscapes, PSPNet ResNet-50 DDCAT, `epsilon = 0.5/255`
 
 ```bash
-pixi run python experiments/test.py \
+python experiments/test.py \
   -cn test_cityscapes \
   model=pspnet_cityscapes_ddcat \
   attack=auto_multi_pgd_tsallis_ce_adaptive \
@@ -158,7 +169,7 @@ Outputs are written under `runs/{task_name}/...`.
 To override the adaptive schedule:
 
 ```bash
-pixi run python experiments/test.py \
+python experiments/test.py \
   attack=auto_multi_pgd_tsallis_ce_adaptive \
   loss.params.q_start=-3 \
   loss.params.q_end=0.5
@@ -170,7 +181,9 @@ For fixed-`q` ablations, use `attack=auto_multi_pgd_tsallis_ce` and set `loss.pa
 
 ### Reproducing the Paper
 
-Per-benchmark shell scripts wrap the sweeps over models, attacks, and perturbation budgets used in the paper:
+Per-benchmark shell scripts wrap the sweeps over models, attacks, and perturbation budgets used in the paper.
+
+Run these commands from inside `pixi shell`.
 
 ```bash
 cd experiments
