@@ -13,9 +13,6 @@ from nvidia.dali.pipeline import Pipeline
 from nvidia.dali.plugin.pytorch import DALIGenericIterator
 from PIL import Image, ImageFilter, ImageOps
 
-from .transforms import RandomGaussianBlur
-
-
 class CV2SegmentationTrainPipeline:
     """Reusable training pipeline composed of Albumentations transforms."""
 
@@ -44,7 +41,7 @@ class CV2SegmentationTrainPipeline:
         # ----- Random scale -----
         if random_scale:
             transforms_list.append(
-                A.RandomScale(scale_limit=(scale_min - 1, scale_max - 1), p=1.0)
+                A.RandomScale(scale_range=(scale_min - 1, scale_max - 1), p=1.0)
             )
 
         # ----- Pad if too small -----
@@ -54,8 +51,8 @@ class CV2SegmentationTrainPipeline:
                 min_width=crop_size,
                 border_mode=cv2.BORDER_CONSTANT,
                 position="top_left",
-                value=pad_value,
-                mask_value=ignore_index,
+                fill=pad_value,
+                fill_mask=ignore_index,
             )
         )
 
@@ -63,21 +60,23 @@ class CV2SegmentationTrainPipeline:
         if random_rotate:
             transforms_list.append(
                 A.Rotate(
-                    limit=(-rotate_min, rotate_max),
+                    angle_range=(rotate_min, rotate_max),
                     border_mode=cv2.BORDER_CONSTANT,
-                    value=pad_value,
-                    mask_value=ignore_index,
+                    fill=pad_value,
+                    fill_mask=ignore_index,
                     p=0.5,
                 )
             )
 
         # ----- Random Gaussian blur -----
         if random_gaussian_blur:
-            transforms_list.append(RandomGaussianBlur())
+            transforms_list.append(
+                A.GaussianBlur(blur_range=(0, 0), sigma_range=(0.0, 1.0), p=0.5)
+            )
 
         # ----- Random horizontal flip -----
         if random_flip:
-            transforms_list.append(A.HorizontalFlip(p=0.5))
+            transforms_list.append(A.HorizontalFlip(p=flip_prob))
 
         # ----- Crop (random or center) -----
         if random_crop:

@@ -5,22 +5,8 @@ import cv2
 import numpy as np
 import torch
 from numpy import random
-from PIL import Image, ImageFilter
+from PIL import Image
 from torchvision import transforms
-
-
-class RandomGaussianBlur(A.ImageOnlyTransform):
-    def __init__(self, always_apply=False, p=0.5):
-        super(RandomGaussianBlur, self).__init__(always_apply, p)
-
-    def apply(self, img, radius=0.0, **params):
-        pil_img = Image.fromarray(img)
-        pil_img = pil_img.filter(ImageFilter.GaussianBlur(radius=radius))
-        return np.array(pil_img)
-
-    def get_params(self):
-        # Matches your original: radius sampled by random.random()
-        return {"radius": random.random()}
 
 
 class ResizeLongSide(A.DualTransform):
